@@ -2,6 +2,7 @@
 Simple list app with react-native(db using cosmosDB)  
 ## Run Project  
 npm install  
+npm install -g nodemon  
 ### Start Express Server  
 nodemon app  
 ### Run React Native App  
