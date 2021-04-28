@@ -11,7 +11,7 @@ const AddItem = ({title, addItem}) => {
         <View>
             <TextInput placeholder="Add Item..." style={styles.input}
             onChangeText={onChange}/>
-            <TouchableOpacity style={styles.btn} onPress={() => addItem(text)}>
+            <TouchableOpacity style={styles.btn} onPress={() => addItem({text})}>
                 <Text style={styles.btnText}><Icon name="plus" size={20}/> Add Item</Text>
             </TouchableOpacity>
         </View>

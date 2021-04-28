@@ -8,7 +8,7 @@ const ListItem = ({item, deleteItem}) => {
             <View style={styles.listItemView}>
                 <Text style={styles.listItemText}>{item.text}</Text>
                 <Icon name="remove" size={20} color="firebrick" 
-                onPress={() => deleteItem(item.id)}/>
+                onPress={() => deleteItem(item._id)}/>
             </View>
         </TouchableOpacity>
     )
