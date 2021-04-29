@@ -1,12 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
-const ListItem = ({item, deleteItem}) => {
+const ListItem = ({item, addToCart, deleteItem}) => {
     return (
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
-                <Text style={styles.listItemText}>{item.text}</Text>
+                <Text style={[styles.listItemText, {flex: 3}]}>{item.text}</Text>
+                <Button
+                title="Add to Cart"
+                onPress={() => addToCart(item._id, item.text, 1)}/>
                 <Icon name="remove" size={20} color="firebrick" 
                 onPress={() => deleteItem(item._id)}/>
             </View>
@@ -23,7 +26,6 @@ const styles = StyleSheet.create({
  },
  listItemView: {
      flexDirection: 'row',
-     justifyContent: 'space-between',
      alignItems: 'center'
  },
  listItemText: {

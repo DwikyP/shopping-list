@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
 const AddItem = ({title, addItem}) => {
@@ -7,11 +7,25 @@ const AddItem = ({title, addItem}) => {
 
     const onChange = (textValue) => setText(textValue);
 
+    const onAdd = () => {
+      if(!text){
+        Alert.alert(
+          "Error", 
+          "Please enter an item",
+          [
+            { text: "OK"}
+          ]
+        );
+        return
+      }
+      addItem({text})
+    }
+
     return (
         <View>
             <TextInput placeholder="Add Item..." style={styles.input}
             onChangeText={onChange}/>
-            <TouchableOpacity style={styles.btn} onPress={() => addItem({text})}>
+            <TouchableOpacity style={styles.btn} onPress={() => onAdd()}>
                 <Text style={styles.btnText}><Icon name="plus" size={20}/> Add Item</Text>
             </TouchableOpacity>
         </View>
