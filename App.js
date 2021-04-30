@@ -9,7 +9,7 @@ import AddItem from './components/AddItem';
 import ListCartItem from './components/ListCartItem'
 import {v4 as uuidv4} from 'uuid';
 
-
+//Home
 const HomeScreen = ({ navigation, route }) => {
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -58,7 +58,7 @@ const HomeScreen = ({ navigation, route }) => {
       body: JSON.stringify(text)
     })
     const data = await res.json()
-    setItems([data, ...items])
+    setItems([...items, data])
   }
 
   const addToCart = (id, text, qty) => {
@@ -81,6 +81,7 @@ const HomeScreen = ({ navigation, route }) => {
   );
 }
 
+//Cart
 const CartScreen = ({ route, navigation }) => {
   const [cartItems, setCartItems] = useState(route.params);
 
