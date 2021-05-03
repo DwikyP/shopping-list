@@ -14,6 +14,8 @@ import {v4 as uuidv4} from 'uuid';
 
 //Home
 const HomeScreen = ({route, navigation}) => {
+  // Checking Authenticated User (Still Error)
+  //-------------------------------------------------------------
   // const [initializing, setInitializing] = useState(true);
   // const [user, setUser] = useState();
 
@@ -32,7 +34,8 @@ const HomeScreen = ({route, navigation}) => {
 
   // if (!user) {
   //    return navigation.navigate('Login')
-  // }
+  //  }
+  // ----------------------------------------------------------
 
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
