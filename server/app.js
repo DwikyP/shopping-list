@@ -37,7 +37,8 @@ app.get('/',(req,res)=>{
 
 app.post('/send-data',(req,res)=>{
     const item = new Item({
-        text: req.body.text
+        text: req.body.text,
+        price: req.body.price,
     })
     item.save()
     .then(data=>{

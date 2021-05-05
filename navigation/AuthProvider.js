@@ -15,7 +15,17 @@ export const AuthProvider = ({children}) => {
         setUser,
         showLoading,
         login: async (email, password) => {
-            setShowLoading(true);
+          if(!email || !password){
+            Alert.alert(
+              "Error", 
+              "Email or Password cannot be blank",
+              [
+                { text: "OK"}
+              ]
+            );
+            return;
+          }
+          setShowLoading(true);
           try {
             await auth().signInWithEmailAndPassword(email, password);
             setShowLoading(false);
@@ -28,7 +38,17 @@ export const AuthProvider = ({children}) => {
           }
         },
         register: async (email, password) => {
-            setShowLoading(true);
+          if(!email || !password){
+            Alert.alert(
+              "Error", 
+              "Email or Password cannot be blank",
+              [
+                { text: "OK"}
+              ]
+            );
+            return;
+          }
+          setShowLoading(true);
           try {
             await auth().createUserWithEmailAndPassword(email, password);
             setShowLoading(false);

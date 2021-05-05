@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 const ItemSchema = new mongoose.Schema({
-    text: String
+    text: String,
+    price: Number
 })
 
 mongoose.model("item", ItemSchema)

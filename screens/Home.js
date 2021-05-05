@@ -7,13 +7,13 @@ import AddItem from '../components/AddItem';
 import ListCartItem from '../components/ListCartItem';
 import {v4 as uuidv4} from 'uuid';
 import { AuthContext } from '../navigation/AuthProvider';
-import { CartContext } from '../context/CartProvider'
+import { ItemContext } from '../context/ItemProvider'
 
 //Home
 const Home = ({route, navigation}) => {
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
 
-  const {cartItems, setCartItems} = useContext(CartContext);
+  const {items, setItems, cartItems, setCartItems} = useContext(ItemContext);
 
   const {user, logout} = useContext(AuthContext);
 
@@ -52,23 +52,27 @@ const Home = ({route, navigation}) => {
     return data;
   };
 
-  const addItem = async text => {
+  const addItem = async (text, price) => {
     const res = await fetch('http://10.0.2.2:3000/send-data', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify({
+        text, 
+        price
+        }),
     });
     const data = await res.json();
     setItems([...items, data]);
+    //console.log(price)
   };
 
-  const addToCart = (id, text, qty) => {
+  const addToCart = (id, text, qty, price) => {
     const isAdded = cartItems.map((item) => item.id)
     if(!isAdded.includes(id)){
       Alert.alert(`${text} added to Cart`);
-      setCartItems([{id, text, qty}, ...cartItems]);
+      setCartItems([{id, text, qty, price}, ...cartItems]);
       console.log(cartItems)
     }
     else
@@ -82,6 +86,10 @@ const Home = ({route, navigation}) => {
         <Text style={styles.user}>Welcome {user.email}</Text>
       </View>
       <AddItem addItem={addItem} />
+      <View style={styles.listItemView}>
+          <Text style={[styles.listItemText, {flex: 1}]}>Item</Text>
+           <Text style={[styles.listItemText, {flex: 1}]}>Price</Text>
+        </View>
       <FlatList
         data={items}
         renderItem={({item}) => (
@@ -104,5 +112,15 @@ const styles = StyleSheet.create({
   },
   user: {
       fontSize: 18
-  }
+  },
+  listItemView: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
+ },
+ listItemText: {
+    fontSize: 18,
+    marginRight: 4,
+    marginLeft: 4
+ }
 });

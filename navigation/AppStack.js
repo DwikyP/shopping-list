@@ -5,14 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
 import { AuthContext } from '../navigation/AuthProvider';
-import { CartProvider } from '../context/CartProvider'
+import { ItemProvider } from '../context/ItemProvider'
  
 const Stack = createStackNavigator();
  
 const AppStack = () => {
     const {logout} = useContext(AuthContext);
   return (
-    <CartProvider>
+    <ItemProvider>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
         name='Home' 
@@ -36,9 +36,21 @@ const AppStack = () => {
             )
         })}
         />
-        <Stack.Screen name='Cart' component={Cart} />
+        <Stack.Screen 
+          name='Cart' 
+          component={Cart} 
+          options = {() => ({
+            headerRight: () => (
+                <Icon
+                  raised
+                  name='logout'
+                  type='material-community'
+                  onPress={() => {logout()}}
+               />
+            )
+        })}/>
       </Stack.Navigator>
-    </CartProvider>
+    </ItemProvider>
   );
 }
  

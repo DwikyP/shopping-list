@@ -4,38 +4,67 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
 const AddItem = ({title, addItem}) => {
     const [text, setText] = useState('');
+    const [price, setPrice] = useState('')
 
     const onChange = (textValue) => setText(textValue);
+    const onChangePrice = (priceValue) => setPrice(priceValue)
 
     const onAdd = () => {
-      if(!text){
+      if(!text || !price){
         Alert.alert(
           "Error", 
-          "Please enter an item",
+          "Please enter an item and the price",
           [
             { text: "OK"}
           ]
         );
         return
       }
-      addItem({text})
+      addItem(text, price)
     }
 
     return (
         <View>
-            <TextInput placeholder="Add Item..." style={styles.input}
-            onChangeText={onChange}/>
-            <TouchableOpacity style={styles.btn} onPress={() => onAdd()}>
-                <Text style={styles.btnText}><Icon name="plus" size={20}/> Add Item</Text>
+            <View 
+            style={styles.container}>
+              <Text style={styles.text}>Item: </Text>
+              <TextInput 
+              placeholder="Add Item..." 
+              style={styles.input}
+              onChangeText={onChange}/>
+            </View>
+            <View 
+            style={styles.container}>
+              <Text style={styles.text}>Price: $</Text>
+              <TextInput 
+              placeholder="Price" 
+              style={styles.input}
+              onChangeText={onChangePrice}
+              keyboardType="numeric"/>
+            </View>
+            <TouchableOpacity 
+              style={styles.btn} 
+              onPress={() => onAdd()}>
+                <Text style={styles.btnText}>
+                  <Icon name="plus" 
+                    size={20}/> Add Item
+                </Text>
             </TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginLeft: 8,
+    marginRight: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   input: {
-    height: 30,
-    padding: 8,
+    fontSize: 18,
+    height: 40,
+    padding: 5,
     margin: 5,
   },
   btn: {
@@ -48,6 +77,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+   text: {
+    fontSize: 18,
+ },
 })
 
 export default AddItem
