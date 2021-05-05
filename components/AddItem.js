@@ -34,7 +34,7 @@ const AddItem = ({title, addItem}) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 60,
+    height: 30,
     padding: 8,
     margin: 5,
   },

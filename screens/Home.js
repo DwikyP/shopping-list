@@ -7,20 +7,15 @@ import AddItem from '../components/AddItem';
 import ListCartItem from '../components/ListCartItem';
 import {v4 as uuidv4} from 'uuid';
 import { AuthContext } from '../navigation/AuthProvider';
+import { CartContext } from '../context/CartProvider'
 
 //Home
 const Home = ({route, navigation}) => {
   const [items, setItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
 
-  const {user, logout} = useContext(AuthContext)
+  const {cartItems, setCartItems} = useContext(CartContext);
 
-  // useEffect(() => {
-  //   if(route.params?.data){
-  //   setCartItems(...route.params.data)
-  //   console.log(route.params?.data);
-  //   }
-  // }, [route.params?.data]);
+  const {user, logout} = useContext(AuthContext);
 
   useEffect(() => {
     const getItems = async () => {
@@ -70,8 +65,14 @@ const Home = ({route, navigation}) => {
   };
 
   const addToCart = (id, text, qty) => {
-    Alert.alert(`${text} added to Cart`);
-    setCartItems([{id, text, qty}, ...cartItems]);
+    const isAdded = cartItems.map((item) => item.id)
+    if(!isAdded.includes(id)){
+      Alert.alert(`${text} added to Cart`);
+      setCartItems([{id, text, qty}, ...cartItems]);
+      console.log(cartItems)
+    }
+    else
+      Alert.alert(`${text} already added to Cart`);
   };
 
   return (
@@ -80,10 +81,6 @@ const Home = ({route, navigation}) => {
       <View style={styles.welcome}>
         <Text style={styles.user}>Welcome {user.email}</Text>
       </View>
-      <Button
-        title="Cart"
-        onPress={() => navigation.navigate('Cart', cartItems)}
-      />
       <AddItem addItem={addItem} />
       <FlatList
         data={items}

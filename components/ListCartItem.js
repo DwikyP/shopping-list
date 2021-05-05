@@ -2,30 +2,18 @@ import React, {useState} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
-const ListCartItem = ({cartItem, removeItem}) => {
-    const [qty, setQty] = useState(cartItem.qty)
-
-    const changeQty = (type) => {
-        if(type=="decrease"){
-            if(qty>0)
-                setQty(prevQty => prevQty - 1)
-        }
-        else{
-            setQty(prevQty => prevQty + 1)
-        }
-    }
-
+const ListCartItem = ({cartItem, removeItem, changeQty}) => {
     return (
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
                 <Text style={[styles.listItemText, {flex: 3}]}>{cartItem.text}</Text>
                 <Button
                 title="--"
-                onPress={() => changeQty("decrease")}/>
-                <Text style={styles.listItemText}>qty: {qty}</Text>
+                onPress={() => changeQty(cartItem.id, "decrease")}/>
+                <Text style={styles.listItemText}>qty: {cartItem.qty}</Text>
                 <Button
                 title="+"
-                onPress={() => changeQty("increase")}/>
+                onPress={() => changeQty(cartItem.id, "increase")}/>
                 <Icon name="remove" size={20} color="firebrick" 
                 onPress={() => removeItem(cartItem.id)}/>
             </View>
