@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements'
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
+import Payment from '../screens/Payment'
 import { AuthContext } from '../navigation/AuthProvider';
 import { ItemProvider } from '../context/ItemProvider'
  
@@ -49,6 +50,9 @@ const AppStack = () => {
                />
             )
         })}/>
+        <Stack.Screen
+          name='Payment'
+          component={Payment}/>
       </Stack.Navigator>
     </ItemProvider>
   );
