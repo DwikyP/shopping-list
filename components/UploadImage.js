@@ -4,7 +4,7 @@ import { View, Text, FlatList, StyleSheet, Alert, Button, Icon, TouchableOpacity
 const UploadImage = ({image, takePhotoFromCamera, takePhotoFromGallery, uploadImage}) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
+            <Text style={[styles.text, {fontWeight:'bold'}]}>
                 Upload Proof of Payment
             </Text>
             {image && (
@@ -15,26 +15,26 @@ const UploadImage = ({image, takePhotoFromCamera, takePhotoFromGallery, uploadIm
             )}
             {image && (
                 <TouchableOpacity 
-                style={styles.btn}>
+                style={styles.btn}
+                onPress={uploadImage}>
                     <Text
-                    disabled={false}
                     style={[styles.text, {color: 'darkblue',}]}
-                    onPress={uploadImage}>Upload Image</Text>
+                    >Upload Image</Text>
                 </TouchableOpacity>
             )}
             <TouchableOpacity 
-            style={styles.btn}>
+            style={styles.btn}
+            onPress={takePhotoFromCamera}>
                 <Text
-                disabled={false}
                 style={[styles.text, {color: 'darkblue',}]}
-                onPress={takePhotoFromCamera}>Take Photo</Text>
+                >Take Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity 
-            style={styles.btn}>
+            style={styles.btn}
+            onPress={takePhotoFromGallery}>
                 <Text
-                disabled={false}
                 style={[styles.text, {color: 'darkblue',}]}
-                onPress={takePhotoFromGallery}>Upload From Gallery</Text>
+                >Upload From Gallery</Text>
             </TouchableOpacity>
         </View>
     )

@@ -1,20 +1,23 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native'
 
-const TotalPrice = ({cartItems, totalPrice, doCheckout}) => {
-
+const OrderDetailDesc = ({order, navigation}) => {
     return (
         <View
         style={styles.container}>
-            <Text
-            style={styles.text}>Total: ${totalPrice}</Text>
+        <   View>
+                <Text
+                style={styles.text}>Total: ${order.totalPrice}</Text>
+                <Text style={styles.text}>Status: {order.status}</Text>
+            </View>
             <TouchableOpacity 
-            disabled={cartItems.length > 0 ? false : true}
+            disabled={order.status=="WAITING FOR PAYMENT" ? false : true}
             style={styles.btn}
-            onPress={doCheckout}>
+            onPress={() => navigation.navigate("Payment", order)}
+            >
                 <Text
                 style={[styles.text, {color: 'darkblue',}]}
-                >Checkout</Text>
+                >{order.status=="WAITING FOR PAYMENT" ? "Upload Payment" : "Paid"}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     text:{
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         marginRight: 4,
         marginLeft: 4
@@ -48,4 +51,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default TotalPrice
+export default OrderDetailDesc

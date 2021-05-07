@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useLayoutEffect, useContext } from 'react';
-import { View, Text, FlatList, StyleSheet, Alert, Button, Icon } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Alert, Button, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Header from '../components/Header';
 import ListItem from '../components/ListItem';
@@ -7,7 +7,8 @@ import AddItem from '../components/AddItem';
 import ListCartItem from '../components/ListCartItem';
 import {v4 as uuidv4} from 'uuid';
 import { AuthContext } from '../navigation/AuthProvider';
-import { ItemContext } from '../context/ItemProvider'
+import { ItemContext } from '../context/ItemProvider';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 //Home
 const Home = ({route, navigation}) => {
@@ -85,6 +86,14 @@ const Home = ({route, navigation}) => {
       <View style={styles.welcome}>
         <Text style={styles.user}>Welcome {user.email}</Text>
       </View>
+      <TouchableOpacity 
+        style={styles.btn} 
+        onPress={() => navigation.navigate('Order')}>
+          <Text style={styles.btnText}>
+            <Icon name="shopping-bag" 
+              size={20}/> My Order
+          </Text>
+      </TouchableOpacity>
       <AddItem addItem={addItem} />
       <View style={styles.listItemView}>
           <Text style={[styles.listItemText, {flex: 1}]}>Item</Text>
@@ -106,6 +115,16 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  btn: {
+    backgroundColor: '#8ab6d6',
+    padding: 9,
+    margin: 5,
+  },
+  btnText: {
+    color: 'darkblue',
+    fontSize: 20,
+    textAlign: 'center',
   },
   welcome: {
       alignItems: 'center'

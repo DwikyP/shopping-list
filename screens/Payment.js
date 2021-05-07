@@ -1,10 +1,17 @@
-import React, {useState} from 'react'
-import { View, Text, FlatList, StyleSheet, Alert, Button, Icon } from 'react-native'
+import React, {useState, useContext, useEffect} from 'react'
+import { View, Text, FlatList, StyleSheet, Alert, Button } from 'react-native'
 import UploadImage from '../components/UploadImage'
 import ImagePicker from 'react-native-image-crop-picker';
+import { ItemContext } from '../context/ItemProvider';
 
-const Payment = () => {
+const Payment = ({route, navigation}) => {
+    const {orders, setOrders} = useContext(ItemContext)
     const [image, setImage] = useState(null)
+    const order = route.params
+
+    // useEffect(() => {
+    //     console.log(order)
+    // }, [])
 
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
@@ -31,7 +38,15 @@ const Payment = () => {
     }
 
     const uploadImage = () => {
-       Alert.alert(`Image Uploaded`);
+        const indexOrder = orders.findIndex((item => item.id == order.id))
+        const newOrders = [...orders]
+
+        newOrders[indexOrder].status = "PROCESSING"
+        setOrders(newOrders)
+
+        Alert.alert(`Image Uploaded`)
+
+        navigation.navigate('Home')
     }
 
     return (

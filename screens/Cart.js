@@ -3,11 +3,12 @@ import { View, Text, FlatList, StyleSheet, Alert, Button, Icon } from 'react-nat
 import 'react-native-gesture-handler';
 import ListCartItem from '../components/ListCartItem';
 import TotalPrice from '../components/TotalPrice'
+import {v4 as uuidv4} from 'uuid';
 import { AuthContext } from '../navigation/AuthProvider';
 import { ItemContext } from '../context/ItemProvider';
 
 const Cart = ({route, navigation}) => {
-  const {items, cartItems, setCartItems} = useContext(ItemContext);
+  const {items, cartItems, setCartItems, orders, setOrders} = useContext(ItemContext);
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
@@ -48,6 +49,18 @@ const Cart = ({route, navigation}) => {
     setCartItems(newCartItems)
   };
 
+  const doCheckout = () =>{
+    const data = {
+      id: uuidv4(),
+      items: cartItems,
+      status: 'WAITING FOR PAYMENT',
+      totalPrice
+    }
+    setOrders([...orders, data])
+    setCartItems([])
+    navigation.navigate('Payment', data)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.listItemView}>
@@ -62,7 +75,7 @@ const Cart = ({route, navigation}) => {
         )}
         keyExtractor={item => item.id}
       />
-      <TotalPrice totalPrice={totalPrice} navigation={navigation}/>
+      <TotalPrice cartItems={cartItems} totalPrice={totalPrice} doCheckout={doCheckout}/>
     </View>
   );
 };
