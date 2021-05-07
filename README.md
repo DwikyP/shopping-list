@@ -1,5 +1,5 @@
 # Shopping List  
-Simple list app with react-native(db using cosmosDB)  
+Simple Shopping App with react-native(db using cosmosDB)  
 ## Run Project  
 npm install  
 npm install -g nodemon(if nodemon does not installed on ur machine yet)  
