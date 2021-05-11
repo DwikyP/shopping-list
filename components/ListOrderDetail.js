@@ -6,7 +6,7 @@ const ListOrderDetail = ({orderDetailItem}) => {
     return (
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
-                <Text style={[styles.listItemText, {flex: 4}]}>{orderDetailItem.text}</Text>
+                <Text style={[styles.listItemText, {flex: 4}]}>{orderDetailItem.item}</Text>
                 <Text style={[styles.listItemText, {flex: 2}]}>${orderDetailItem.price}</Text>
                 <Text style={styles.listItemText}>{orderDetailItem.qty}</Text>
             </View>

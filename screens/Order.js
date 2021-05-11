@@ -18,7 +18,7 @@ const Order = ({navigation}) => {
             renderItem={({item}) => (
                 <ListOrder order={item} navigation={navigation}/>
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item._id}
         />
         </View>
     )

@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const Home = ({route, navigation}) => {
   //const [items, setItems] = useState([]);
 
-  const {items, setItems, cartItems, setCartItems} = useContext(ItemContext);
+  const {items, setItems, cartItems, setCartItems, setOrders} = useContext(ItemContext);
 
   const {user, logout} = useContext(AuthContext);
 
@@ -23,9 +23,17 @@ const Home = ({route, navigation}) => {
       const itemsFromServer = await fetchItems();
       setItems(itemsFromServer);
     };
+
+    const getOrders = async () => {
+      const ordersFromServer = await fetchOrders();
+      setOrders(ordersFromServer);
+    };
+
     getItems();
+    getOrders();
   }, []);
 
+//request items
   const deleteItem = async _id => {
     const res = await fetch('http://10.0.2.2:3000/delete', {
       method: 'POST',
@@ -73,12 +81,19 @@ const Home = ({route, navigation}) => {
     const isAdded = cartItems.map((item) => item.id)
     if(!isAdded.includes(id)){
       Alert.alert(`${text} added to Cart`);
-      setCartItems([{id, text, qty, price}, ...cartItems]);
+      setCartItems([{id, item: text, qty, price}, ...cartItems]);
       console.log(cartItems)
     }
     else
       Alert.alert(`${text} already added to Cart`);
   };
+
+ const fetchOrders = async () =>{
+   const res = await fetch(`http://10.0.2.2:3000/order/${user.uid}`);
+   const data = await res.json();
+
+  return data;
+ }
 
   return (
     <View style={styles.container}>

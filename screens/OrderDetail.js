@@ -19,7 +19,7 @@ const OrderDetail = ({route, navigation}) => {
                 renderItem={({item}) => (
                  <ListOrderDetail orderDetailItem={item} />
                 )}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item._id}
             />
             <OrderDetailDesc order={order} navigation={navigation}/>
         </View>

@@ -9,6 +9,7 @@ import { ItemContext } from '../context/ItemProvider';
 
 const Cart = ({route, navigation}) => {
   const {items, cartItems, setCartItems, orders, setOrders} = useContext(ItemContext);
+  const {user} = useContext(AuthContext);
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
@@ -49,16 +50,38 @@ const Cart = ({route, navigation}) => {
     setCartItems(newCartItems)
   };
 
-  const doCheckout = () =>{
-    const data = {
-      id: uuidv4(),
-      items: cartItems,
-      status: 'WAITING FOR PAYMENT',
-      totalPrice
-    }
-    setOrders([...orders, data])
+  const addOrders = async (uid, items, status, totalPrice) => {
+    const res = await fetch('http://10.0.2.2:3000/send-order', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        uid, 
+        items,
+        status,
+        totalPrice
+        }),
+    });
+    const data = await res.json();
+    setOrders([...orders, data]);
     setCartItems([])
     navigation.navigate('Payment', data)
+  }
+
+  const doCheckout = () =>{
+    // const data = {
+    //   id: uuidv4(),
+    //   items: cartItems,
+    //   status: 'WAITING FOR PAYMENT',
+    //   totalPrice
+    // }
+    // setOrders([...orders, data])
+    const uid = user.uid
+    const items = cartItems
+    const status = "WAITING FOR PAYMENT" 
+    
+    addOrders(uid, items, status, totalPrice)
   }
 
   return (

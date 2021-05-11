@@ -38,7 +38,7 @@ const Payment = ({route, navigation}) => {
     }
 
     const uploadImage = () => {
-        const indexOrder = orders.findIndex((item => item.id == order.id))
+        const indexOrder = orders.findIndex((item => item._id == order._id))
         const newOrders = [...orders]
 
         newOrders[indexOrder].status = "PROCESSING"

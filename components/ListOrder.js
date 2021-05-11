@@ -10,7 +10,7 @@ const ListOrder = ({order, navigation}) => {
             <View
             style={styles.listItemView}>
                 <View>
-                    <Text style={styles.listItemText}>Order {order.id}</Text>
+                    <Text style={styles.listItemText}>Order {order._id}</Text>
                     <Text style={styles.listItemText}>Status: {order.status}</Text>
                 </View>
                 <Text style={styles.listItemText}>Total: ${order.totalPrice}</Text>

@@ -6,7 +6,7 @@ const ListCartItem = ({cartItem, removeItem, changeQty}) => {
     return (
         <TouchableOpacity style={styles.listItem}>
             <View style={styles.listItemView}>
-                <Text style={[styles.listItemText, {flex: 4}]}>{cartItem.text}</Text>
+                <Text style={[styles.listItemText, {flex: 4}]}>{cartItem.item}</Text>
                 <Text style={[styles.listItemText, {flex: 2}]}>${cartItem.price}</Text>
                 <TouchableOpacity 
                     style={styles.btn} 

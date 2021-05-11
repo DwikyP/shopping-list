@@ -66,7 +66,7 @@ app.post('/delete',(req,res)=>{
 //Order Requests
 
 app.get('/order/:uid',(req,res)=>{
-    Item.find({uid: '1'}).then(data=>{
+    Order.find({uid: req.params.uid}).then(data=>{
         res.send(data)
     }).catch(err=>{
         console.log(err)
